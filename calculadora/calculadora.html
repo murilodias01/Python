@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Online</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0c6;
+            font-family: Arial, sans-serif;
+        }
+
+        .calculadora {
+            background-color: #43344918;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+
+        .display {
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 10px 10px 4px 4px;
+            margin-bottom: 15px;
+            text-align: right;
+            border: 1px solid #ccc;
+        }
+
+        .etapas {
+            font-size: 0.9em;
+            color: #666;
+            height: 20px;
+        }
+
+        .resultado {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #333;
+            height: 30px;
+            margin-top: 5px;
+        }
+
+        .inputs-grupo {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .inputs-grupo input, .inputs-grupo select {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+
+        .buttons button {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            background-color: #433449;
+            color: white;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .buttons button:hover {
+            background-color: #5c4864;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="calculadora">
+        <!-- Display de Resultados -->
+        <div class="display">
+            <div class="etapas">{{ etapas }}</div>
+            <div class="resultado">{% if resultado is not none %}{{ resultado }}{% endif %}</div>
+        </div>
+
+        <!-- Formulário de Envio -->
+        <form method="POST">
+            <div class="inputs-grupo">
+                <input type="number" step="any" name="num1" placeholder="Primeiro número" required>
+                
+                <select name="operacao" required>
+                    <option value="+">Adição (+)</option>
+                    <option value="-">Subtração (-)</option>
+                    <option value="*">Multiplicação (*)</option>
+                    <option value="/">Divisão (/)</option>
+                </select>
+                
+                <input type="number" step="any" name="num2" placeholder="Segundo número" required>
+            </div>
+
+            <div class="buttons">
+                <button type="submit">Calcular</button>
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>
