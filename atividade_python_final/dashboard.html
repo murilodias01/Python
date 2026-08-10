@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+
+{% block conteudo %}
+
+<h2>Bem-vindo {{ session.nome }}</h2>
+
+<div class="alert alert-info">
+    {{ frase }}
+</div>
+
+<a href="/nova_tarefa" class="btn btn-success mb-3">
+    Nova Tarefa
+</a>
+
+<div class="mb-3">
+    <select id="filtro" class="form-select">
+        <option value="">Todas</option>
+        <option value="Pendente">Pendente</option>
+        <option value="Em andamento">Em andamento</option>
+        <option value="Concluída">Concluída</option>
+    </select>
+</div>
+
+<div id="lista-tarefas">
+
+{% for tarefa in tarefas %}
+
+<div class="card mb-3
+{% if tarefa[3] == 'Pendente' %}
+status-pendente
+{% elif tarefa[3] == 'Em andamento' %}
+status-andamento
+{% else %}
+status-concluida
+{% endif %}
+">
+
+    <div class="card-body">
+
+        <h5>{{ tarefa[1] }}</h5>
+
+        <p>{{ tarefa[2] }}</p>
+
+        <strong>Status:</strong> {{ tarefa[3] }}
+
+        <br><br>
+
+        <a href="/editar/{{ tarefa[0] }}" class="btn btn-warning">
+            Editar
+        </a>
+
+        <a href="/excluir/{{ tarefa[0] }}" class="btn btn-danger">
+            Excluir
+        </a>
+
+    </div>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+<script>
+
+const filtro = document.getElementById("filtro");
+
+filtro.addEventListener("change", async () => {
+
+    let status = filtro.value;
+
+    if(status === ""){
+        location.reload();
+        return;
+    }
+
+    const resposta = await fetch(`/filtrar/${status}`);
+    const tarefas = await resposta.json();
+
+    const lista = document.getElementById("lista-tarefas");
+
+    lista.innerHTML = "";
+
+    tarefas.forEach(tarefa => {
+
+        lista.innerHTML += `
+        <div class="card mb-3">
+            <div class="card-body">
+
+                <h5>${tarefa.titulo}</h5>
+
+                <p>${tarefa.descricao}</p>
+
+                <strong>Status:</strong> ${tarefa.status}
+
+            </div>
+        </div>
+        `;
+    });
+
+});
+
+</script>
+
+{% endblock %}

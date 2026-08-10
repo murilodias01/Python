@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block conteudo %}
+
+<h2>Editar Tarefa</h2>
+
+<form method="POST">
+
+    <input class="form-control mb-2"
+           name="titulo"
+           value="{{ tarefa[1] }}">
+
+    <textarea class="form-control mb-2"
+              name="descricao">{{ tarefa[2] }}</textarea>
+
+    <input class="form-control mb-2"
+           name="status"
+           value="{{ tarefa[3] }}">
+
+    <button class="btn btn-primary">
+        Atualizar
+    </button>
+
+</form>
+
+{% endblock %}

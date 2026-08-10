@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block conteudo %}
+
+<h2>Registro</h2>
+
+<form method="POST">
+
+    <input class="form-control mb-2"
+           name="nome"
+           placeholder="Nome">
+
+    <input class="form-control mb-2"
+           name="email"
+           placeholder="Email">
+
+    <input class="form-control mb-2"
+           type="password"
+           name="senha"
+           placeholder="Senha">
+
+    <button class="btn btn-success">
+        Registrar
+    </button>
+
+</form>
+
+{% endblock %}

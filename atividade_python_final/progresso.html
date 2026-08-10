@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% block conteudo %}
+
+<h2>Dashboard de Progresso</h2>
+
+<div class="row text-center mb-4">
+
+    <div class="col">
+        <div class="card">
+            <div class="card-body">
+                <h3 id="pendentes">0</h3>
+                <p>Pendentes</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card">
+            <div class="card-body">
+                <h3 id="andamento">0</h3>
+                <p>Em andamento</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card">
+            <div class="card-body">
+                <h3 id="concluidas">0</h3>
+                <p>Concluídas</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<canvas id="grafico"></canvas>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+
+fetch("/dados_grafico")
+.then(res => res.json())
+.then(dados => {
+
+    document.getElementById("pendentes").innerText =
+        dados["Pendente"];
+
+    document.getElementById("andamento").innerText =
+        dados["Em andamento"];
+
+    document.getElementById("concluidas").innerText =
+        dados["Concluída"];
+
+    new Chart(
+        document.getElementById("grafico"),
+        {
+            type: "pie",
+
+            data: {
+                labels: [
+                    "Pendente",
+                    "Em andamento",
+                    "Concluída"
+                ],
+
+                datasets: [{
+                    data: [
+                        dados["Pendente"],
+                        dados["Em andamento"],
+                        dados["Concluída"]
+                    ]
+                }]
+            }
+        }
+    );
+
+});
+
+</script>
+
+{% endblock %}
